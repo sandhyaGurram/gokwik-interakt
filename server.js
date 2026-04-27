@@ -29,11 +29,13 @@ app.post("/webhooks/checkout", async (req, res) => {
       data.checkout?.customer_phone;
 
     const name =
-      data.name ||
-      data.customer_name ||
-      data.customer?.name ||
-      data.checkout?.name ||
-      data.checkout?.customer_name;
+  data.name ||
+  data.customer_name ||
+  data.customer?.name ||
+  `${data.customer?.firstname || ""} ${data.customer?.lastname || ""}`.trim() ||
+  `${data.address?.firstname || ""} ${data.address?.lastname || ""}`.trim() ||
+  data.checkout?.name ||
+  data.checkout?.customer_name;
 
     const email =
       data.email ||
